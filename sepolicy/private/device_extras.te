@@ -16,6 +16,7 @@ allow device_extras {
   hint_service
   media_session_service
   netstats_service
+  package_service
   sensorservice_service
   surfaceflinger_service
   vendor_perf_service

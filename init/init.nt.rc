@@ -49,6 +49,15 @@ on post-fs-data
     chown system system /sys/class/kgsl/kgsl-3d0/devfreq/cur_freq
     chmod 0440 /sys/class/kgsl/kgsl-3d0/devfreq/cur_freq
 
+    # Thermal limiter: let DeviceExtras cap the CPU clusters. cpuX/cpufreq is a
+    # symlink to cpufreq/policyN, so the per-policy node covers every core.
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy7/scaling_max_freq
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy7/scaling_max_freq
+
 on property:sys.boot_completed=1
     chown system system /sys/class/qcom-battery/wireless_boost_en
     chown system system /sys/class/qcom-battery/wls_reverse_status
@@ -61,10 +70,6 @@ on property:sys.boot_completed=1
     setprop vendor.powerhal.init 1
 
 on property:vendor.post_boot.parsed=1
-    # Kill WALT CPU input boost
-    write /proc/sys/walt/input_boost/input_boost_freq "0 0 0 0 0 0 0"
-    write /proc/sys/walt/input_boost/input_boost_ms 0
-
     # dex2oat
     setprop dalvik.vm.dex2oat-cpu-set 0,1,2,3,4,5,6
     setprop dalvik.vm.dex2oat-threads 6
@@ -76,9 +81,14 @@ on property:vendor.post_boot.parsed=1
     write /proc/irq/240/smp_affinity_list 1
 
     # Configure uclamp
-    write /dev/cpuctl/background/cpu.uclamp.max 60
-    write /dev/cpuctl/system-background/cpu.uclamp.max 70
-    write /dev/cpuctl/dex2oat/cpu.uclamp.max 60
+    setprop kernel.sched_util_clamp_min_rt_default 128
+    write /proc/sys/kernel/sched_util_clamp_min_rt_default 128
+
+    write /dev/cpuctl/top-app/cpu.uclamp.min 15
+    write /dev/cpuctl/background/cpu.uclamp.max 80
+    write /dev/cpuctl/system-background/cpu.uclamp.max 40
+    write /dev/cpuctl/nnapi-hal/cpu.uclamp.min 2
+    write /dev/cpuctl/nnapi-hal/cpu.uclamp.latency_sensitive 0
 
     chown system graphics /sys/class/drm/card0/sde-crtc-0/measured_fps
     chmod 0660 /sys/class/drm/card0/sde-crtc-0/measured_fps

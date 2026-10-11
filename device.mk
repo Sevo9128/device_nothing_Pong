@@ -37,7 +37,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@7.0-impl \
     android.hardware.audio.effect@7.0-impl \
     android.hardware.audio.service \
-    android.hardware.bluetooth.audio@2.1-impl \
     android.hardware.bluetooth.audio-impl \
     android.hardware.soundtrigger@2.3-impl \
     audio.bluetooth.default \
@@ -116,13 +115,30 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.capabilityconfigstore@1.0.vendor
 
 # Dalvik
-PRODUCT_VENDOR_PROPERTIES += \
-    dalvik.vm.heapstartsize=24m \
-    dalvik.vm.heapgrowthlimit=384m \
-    dalvik.vm.heapsize=512m \
-    dalvik.vm.heaptargetutilization=0.42 \
-    dalvik.vm.heapminfree=8m \
-    dalvik.vm.heapmaxfree=56m
+PRODUCT_PRODUCT_PROPERTIES += \
+    dalvik.vm.heapstartsize?=24m \
+    dalvik.vm.heapgrowthlimit?=512m \
+    dalvik.vm.heapsize?=512m \
+    dalvik.vm.heaptargetutilization?=0.75 \
+    dalvik.vm.heapminfree?=8m \
+    dalvik.vm.heapmaxfree?=96m \
+    dalvik.vm.foreground-heap-growth-multiplier?=1.0 \
+    dalvik.vm.enable_time_based_gc_trigger?=true \
+    dalvik.vm.usejit?=true \
+    dalvik.vm.jitmaxsize?=512m \
+    dalvik.vm.jitinitialsize?=64m \
+    dalvik.vm.jitthreshold?=5000 \
+    dalvik.vm.jitwarmupthreshold?=2500 \
+    dalvik.vm.jitpthreadpriority?=8 \
+    dalvik.vm.parallel-image-loading?=true \
+    dalvik.vm.madvise.vdexfile.size?=104857600 \
+    dalvik.vm.madvise.odexfile.size?=104857600 \
+    dalvik.vm.madvise.artfile.size?=0 \
+    dalvik.vm.usap_pool_enabled?=true \
+    dalvik.vm.usap_pool_size_min?=1 \
+    dalvik.vm.usap_pool_size_max?=5 \
+    dalvik.vm.usap_refill_threshold?=1 \
+    dalvik.vm.usap_pool_refill_delay_ms?=3000
 
 # DebugFS
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
@@ -135,8 +151,7 @@ $(call soong_config_set_bool,camera,override_format_from_reserved,true)
 
 # Display
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/displayconfig/display_id_4630946639017191810.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630946639017191809.xml \
-    $(LOCAL_PATH)/configs/displayconfig/display_id_4630946639017191810.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630946639017191810.xml
+    $(LOCAL_PATH)/configs/displayconfig/display_id_4630946639017191809.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630946639017191809.xml
 
 PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
@@ -167,8 +182,7 @@ PRODUCT_COPY_FILES += \
 
 # Fastboot
 PRODUCT_PACKAGES += \
-    android.hardware.fastboot-service.example_recovery \
-    fastbootd
+    android.hardware.fastboot-service.example_recovery
 
 # Generic ramdisk
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
@@ -233,6 +247,9 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     ueventd.nt.rc \
     ueventd.qcom.rc
+
+# Kernel
+PRODUCT_ENABLE_UFFD_GC := true
 
 # Keymint
 PRODUCT_PACKAGES += \
@@ -408,7 +425,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
-    hardware/google/pixel \
+    hardware/google/pixel/pixelstats \
+    hardware/google/pixel/power-libperfmgr \
     hardware/lineage/interfaces/power-libperfmgr \
     hardware/qcom-caf/common/libqti-perfd-client 
 
@@ -447,6 +465,9 @@ PRODUCT_COPY_FILES += \
 # Thermal
 PRODUCT_PACKAGES += \
     android.hardware.thermal-service.qti
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf
 
 # Update engine
 PRODUCT_PACKAGES += \

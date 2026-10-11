@@ -4,6 +4,7 @@ genfscon sysfs /class/qcom-battery/scenario_fcc																			u:object_r:ven
 
 # Fingerprint
 genfscon sysfs /devices/platform/soc/soc:qcom,dsi-display-primary/force_fod_ui   u:object_r:vendor_sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,dsi-display-primary/fod_ui         u:object_r:vendor_sysfs_fingerprint:s0
 
 # FPS Info
 genfscon sysfs /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps        u:object_r:vendor_sysfs_graphics:s0
@@ -11,6 +12,8 @@ genfscon sysfs /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/sde-crt
 # Gestures
 genfscon sysfs /devices/platform/goodix_ts.0/fp_state               u:object_r:vendor_sysfs_sensors:s0
 genfscon sysfs /devices/platform/goodix_ts.0/single_tap             u:object_r:vendor_sysfs_sensors:s0
+genfscon sysfs /devices/platform/goodix_ts.0/gesture             u:object_r:vendor_sysfs_sensors:s0
+
 
 # GPU Thermal Control
 genfscon sysfs /devices/platform/soc/3d00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk    u:object_r:sysfs_kgsl_gpuclk:s0
@@ -22,6 +25,10 @@ genfscon proc /charger/nt_otg_enable																				u:object_r:proc_charger:
 
 # Vibrator
 genfscon sysfs /devices/platform/soc/88c000.i2c/i2c-3/3-005a/leds/aw_vibrator   u:object_r:sysfs_vibrator:s0
+
+# LEDs
+genfscon sysfs /devices/platform/soc/994000.i2c/i2c-0/0-003a/leds/led_strips   u:object_r:sysfs_led_strips:s0
+genfscon sysfs /class/leds/led_strips                                          u:object_r:sysfs_led_strips:s0
 
 # PowerShare
 genfscon sysfs /class/qcom-battery/wireless_boost_en                            u:object_r:sysfs_powershare:s0
