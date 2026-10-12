@@ -1,12 +1,12 @@
 # Device tree for Nothing Phone 2 (Pong)
-##### Lineage 23.X branch - Required for build
+##### Axion 2.9 branch - Required for build
 
 ## Setup
 
 Clone the correct branch into **device/nothing/Pong**
 
 You can do so by selecting the branch corresponding to your rom at the top and executing this command:
-> git clone https://github.com/Sevo9128/device_nothing_Pong.git -b lineage-23.X device/nothing/Pong
+> git clone https://github.com/Sevo9128/device_nothing_Pong.git -b axion-2.9 device/nothing/Pong
 
 
 ## Other
