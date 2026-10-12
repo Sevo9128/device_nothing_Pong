@@ -44,19 +44,60 @@ on post-fs-data
     # Enable WLAN SSR
     write /sys/kernel/cnss/recovery 1
 
-    chown system system /sys/class/kgsl/kgsl-3d0/max_gpuclk
-    chmod 0660 /sys/class/kgsl/kgsl-3d0/max_gpuclk
-    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/cur_freq
-    chmod 0440 /sys/class/kgsl/kgsl-3d0/devfreq/cur_freq
-
-    # Thermal limiter: let DeviceExtras cap the CPU clusters. cpuX/cpufreq is a
-    # symlink to cpufreq/policyN, so the per-policy node covers every core.
+    # Thermal limiter and Axion Kernel Manager
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
     chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_available_governors
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
     chmod 0660 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    chmod 0440 /sys/devices/system/cpu/cpufreq/policy0/scaling_available_governors
+    chmod 0440 /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+    chmod 0440 /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq
+
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq
     chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_available_governors
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_available_frequencies
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_cur_freq             
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq
     chmod 0660 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq
+    chmod 0440 /sys/devices/system/cpu/cpufreq/policy4/scaling_available_governors
+    chmod 0440 /sys/devices/system/cpu/cpufreq/policy4/scaling_available_frequencies
+    chmod 0440 /sys/devices/system/cpu/cpufreq/policy4/scaling_cur_freq
+
+    chown system system /sys/devices/system/cpu/cpufreq/policy7/scaling_governor
+    chown system system /sys/devices/system/cpu/cpufreq/policy7/scaling_min_freq
     chown system system /sys/devices/system/cpu/cpufreq/policy7/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy7/scaling_available_governors
+    chown system system /sys/devices/system/cpu/cpufreq/policy7/scaling_available_frequencies
+    chown system system /sys/devices/system/cpu/cpufreq/policy7/scaling_cur_freq             
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy7/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy7/scaling_min_freq
     chmod 0660 /sys/devices/system/cpu/cpufreq/policy7/scaling_max_freq
+    chmod 0440 /sys/devices/system/cpu/cpufreq/policy7/scaling_available_governors
+    chmod 0440 /sys/devices/system/cpu/cpufreq/policy7/scaling_available_frequencies
+    chmod 0440 /sys/devices/system/cpu/cpufreq/policy7/scaling_cur_freq
+    
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/max_gpuclk
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/available_frequencies
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/cur_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/gpuclk
+    chown system system /sys/class/kgsl/kgsl-3d0/gpu_busy_percentage
+    chmod 0660 /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chmod 0660 /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chmod 0660 /sys/class/kgsl/kgsl-3d0/max_gpuclk
+    chmod 0440 /sys/class/kgsl/kgsl-3d0/devfreq/available_frequencies
+    chmod 0440 /sys/class/kgsl/kgsl-3d0/devfreq/cur_freq
+    chmod 0440 /sys/class/kgsl/kgsl-3d0/gpuclk
+    chmod 0440 /sys/class/kgsl/kgsl-3d0/gpu_busy_percentage
 
 on property:sys.boot_completed=1
     chown system system /sys/class/qcom-battery/wireless_boost_en

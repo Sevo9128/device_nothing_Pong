@@ -1,5 +1,8 @@
 # Fingerprint
 type vendor_persist_goodix_file, file_type;
 
+# GPU
 type sysfs_kgsl_gpuclk, sysfs_type, fs_type;
+
+# Torch
 type sysfs_torch, sysfs_type, fs_type;

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kernel-manager>
+    <!-- CPU clusters -->
+    <cpu
+        id="little"
+        group="Little Cluster"
+        cpuIds="0-3"
+        minId="axion_min_freq_little"
+        maxId="axion_max_freq_little"
+        governorId="axion_cpu_governor_little"
+        node="/sys/devices/system/cpu/cpufreq/policy0"
+    />
+    <cpu
+        id="big"
+        group="Big Cluster"
+        cpuIds="4-6"
+        minId="axion_min_freq_big"
+        maxId="axion_max_freq_big"
+        governorId="axion_cpu_governor_big"
+        node="/sys/devices/system/cpu/cpufreq/policy4"
+    />
+    <cpu
+        id="prime"
+        group="Prime Cluster"
+        cpuIds="7"
+        minId="axion_min_freq_prime"
+        maxId="axion_max_freq_prime"
+        governorId="axion_cpu_governor_prime"
+        node="/sys/devices/system/cpu/cpufreq/policy7"
+    />
+    <!-- GPU (Qualcomm Adreno kgsl) -->
+    <gpu
+        node="/sys/class/kgsl/kgsl-3d0/devfreq"
+        currentNode="/sys/class/kgsl/kgsl-3d0/gpuclk"
+        usageNode="/sys/class/kgsl/kgsl-3d0/gpu_busy_percentage"
+        availablePath="/sys/class/kgsl/kgsl-3d0/devfreq/available_frequencies"
+        frequencyMultiplier="1"
+    />
+</kernel-manager>
