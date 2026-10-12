@@ -543,3 +543,7 @@ ifeq ($(TARGET_USE_REMOVEPACKAGE),true)
 PRODUCT_PACKAGES += \
     RemovePackages
 endif
+
+# Axion Kernel Manager
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/kernel/ax_kernel_manager.xml:$(TARGET_COPY_OUT_VENDOR)/etc/ax_kernel_manager.xml
