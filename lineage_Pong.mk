@@ -30,3 +30,22 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     DeviceProduct=Pong \
     SystemDevice=Pong \
     SystemName=Pong
+
+# AxionFX
+TARGET_INCLUDE_AXFX := true
+
+# Device properties
+AXION_CAMERA_REAR_INFO := 50,50
+AXION_CAMERA_FRONT_INFO := 32
+AXION_PROCESSOR := Snapdragon_8+_Gen_1
+
+# Doze
+TARGET_DOZE_PICKUP_PULSE_SUPPORTED := true
+TARGET_DOZE_TAP_PULSE_SUPPORTED := true
+TARGET_DOZE_DOUBLE_TAP_PULSE_SUPPORTED := false
+TARGET_DOZE_SIDE_FPS_PULSE_SUPPORTED := false
+
+TARGET_NEEDS_DOZE_FIX := false
+
+# Maintainer
+AXION_MAINTAINER := Anonymous
